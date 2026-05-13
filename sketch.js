@@ -1,4 +1,4 @@
-// User variables - easy to change
+    fill("#ffff00");// User variables - easy to change
 let circleX = 250;
 let circleY = 250;
 let circleRadius = 30;
@@ -42,3 +42,43 @@ function draw() {
     drawingContext.shadowBlur = 0;   // Reset glow
     
     // "VOLT" text like your original
+
+    textSize(32);
+    textFont("Georgia");
+    textStyle(ITALIC);
+    textAlign(LEFT);
+    text("Volt", 40, 50);
+    
+    // Movement
+    let speed = circleSpeed;
+    if (keyIsDown(SHIFT)) speed *= 2;   // Hold Shift = faster
+    
+    if (keyIsDown(LEFT_ARROW) || keyIsDown(65))  circleX -= speed;  // A
+    if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) circleX += speed;  // D
+    if (keyIsDown(UP_ARROW) || keyIsDown(87))    circleY -= speed;  // W
+    if (keyIsDown(DOWN_ARROW) || keyIsDown(83))  circleY += speed;  // S
+    
+    // Keep circle inside canvas
+    circleX = constrain(circleX, circleRadius, width - circleRadius);
+    circleY = constrain(circleY, circleRadius, height - circleRadius);
+}
+
+// Click to teleport the big circle + your original growing effect
+function mousePressed() {
+    // Teleport big circle to mouse
+    circleX = mouseX;
+    circleY = mouseY;
+    
+    // Your original growing circle logic
+    if (diam1 > 100) {
+        diam1 = 0;
+    } else {
+        diam1 += 15;
+    }
+}
+
+// Optional: Click and drag to move the circle
+function mouseDragged() {
+    circleX = mouseX;
+    circleY = mouseY;
+}
