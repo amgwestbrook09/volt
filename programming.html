@@ -6,9 +6,6 @@
     <title>Programming - Volt</title>
     
     <script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/addons/p5.dom.min.js"></script>
-    <script src="sketch.js"></script>
-    
     <link rel="stylesheet" type="text/css" href="style.css">
     
     <style>
@@ -20,19 +17,22 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: Arial, sans-serif;
+            overflow: hidden;
         }
         h1 {
             position: absolute;
             top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             color: yellow;
             text-shadow: 2px 2px 8px black;
             z-index: 10;
+            margin: 0;
         }
     </style>
 </head>
 <body>
     <h1>Volt Programming Lab</h1>
+    <script src="sketch.js"></script>
 </body>
 </html>
-
