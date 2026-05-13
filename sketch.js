@@ -1,84 +1,60 @@
-    fill("#ffff00");// User variables - easy to change
-let circleX = 250;
-let circleY = 250;
-let circleRadius = 30;
-let circleSpeed = 6;
-
-let diam1 = 0;   // Your original growing circle
+   let x, y, dx, dy;
+let radius = 25;
 
 function setup() {
-    createCanvas(500, 500);   // Matching your original size
+    let canvas = createCanvas(600, 500);
+    canvas.parent("body");           // puts canvas in the page
+    canvas.style('border', '8px solid #ffcc00');
+    canvas.style('box-shadow', '0 0 30px rgba(0,0,0,0.5)');
+    
+    // Starting position in the center
+    x = width / 2;
+    y = height / 2;
+    
+    // Movement speed
+    dx = 4;
+    dy = 3.5;
+    
+    background(77, 166, 255); // blue background
 }
 
 function draw() {
-    // Background - blue like your animation
-    background("#3ABDFf");
+    // Blue background (fades trails slightly)
+    background(77, 166, 255, 40);
     
-    // Yellow bottom section like the YouTube thumbnail
-    fill("#FFCC00");
-    rect(0, 300, width, height);
+    // Update position
+    x += dx;
+    y += dy;
     
-    // Your original light blue growing circle
-    fill("#add8e6");
-    stroke("#ffff00");
-    strokeWeight(5);
-    ellipse(50, 100, diam1, diam1);
+    // Bounce off walls
+    if (x - radius <= 0 || x + radius >= width) {
+        dx = -dx;
+    }
+    if (y - radius <= 0 || y + radius >= height) {
+        dy = -dy;
+    }
     
-    // Small yellow circle (your original)
-    fill("#FFFF3A");
-    ellipse(200, 200, 20, 20);
-    
-    // Main movable circle (big yellow one)
-    fill("#ffeb3b");
-    stroke("#ffff00");
-    strokeWeight(8);
+    // Draw the glowing yellow Volt orb
+    noStroke();
     
     // Glow effect
-    drawingContext.shadowBlur = 30;
-    drawingContext.shadowColor = "#ffeb3b";
+    fill(255, 220, 0, 80);
+    ellipse(x, y, radius * 2.8);
     
-    ellipse(circleX, circleY, circleRadius * 2);
+    // Main circle
+    fill(255, 240, 0);
+    ellipse(x, y, radius * 2);
     
-    drawingContext.shadowBlur = 0;   // Reset glow
-    
-    // "VOLT" text like your original
-
-    textSize(32);
-    textFont("Georgia");
-    textStyle(ITALIC);
-    textAlign(LEFT);
-    text("Volt", 40, 50);
-    
-    // Movement
-    let speed = circleSpeed;
-    if (keyIsDown(SHIFT)) speed *= 2;   // Hold Shift = faster
-    
-    if (keyIsDown(LEFT_ARROW) || keyIsDown(65))  circleX -= speed;  // A
-    if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) circleX += speed;  // D
-    if (keyIsDown(UP_ARROW) || keyIsDown(87))    circleY -= speed;  // W
-    if (keyIsDown(DOWN_ARROW) || keyIsDown(83))  circleY += speed;  // S
-    
-    // Keep circle inside canvas
-    circleX = constrain(circleX, circleRadius, width - circleRadius);
-    circleY = constrain(circleY, circleRadius, height - circleRadius);
+    // Highlight
+    fill(255, 255, 255, 180);
+    ellipse(x - 8, y - 8, 12);
 }
 
-// Click to teleport the big circle + your original growing effect
+// Click the canvas to give Volt a speed boost in random direction
 function mousePressed() {
-    // Teleport big circle to mouse
-    circleX = mouseX;
-    circleY = mouseY;
-    
-    // Your original growing circle logic
-    if (diam1 > 100) {
-        diam1 = 0;
-    } else {
-        diam1 += 15;
+    if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+        dx = random(-7, 7);
+        dy = random(-7, 7);
     }
 }
 
-// Optional: Click and drag to move the circle
-function mouseDragged() {
-    circleX = mouseX;
-    circleY = mouseY;
-}
