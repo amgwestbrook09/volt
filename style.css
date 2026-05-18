@@ -3,7 +3,7 @@ body {
 }
 
 h1 {
-	color: #FFFFFF;
+	color: black;
 	font-family: papyrus;
 	font-size: 40px;
 	background-color: #C7C5C5;
@@ -14,7 +14,7 @@ h1 {
 }
 
 p {
-	color: #FFFFFF;
+	color: black;
 	font-family: Helvetica;
 	text-align: center;
 }
